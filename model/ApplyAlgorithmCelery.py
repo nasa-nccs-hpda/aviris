@@ -3,11 +3,10 @@ import numpy as np
 
 from celery import group
 
-from model.CeleryConfiguration import app
-from model.Chunker import Chunker
+from core.model.CeleryConfiguration import app
+from core.model.Chunker import Chunker
 
-from projects.aviris_regression_algorithms.model.ApplyAlgorithm \
-    import ApplyAlgorithm
+from aviris.model.ApplyAlgorithm import ApplyAlgorithm
 
 # -----------------------------------------------------------------------------
 # class ApplyAlgorithmCelery

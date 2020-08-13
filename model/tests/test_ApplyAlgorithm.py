@@ -7,8 +7,7 @@ import sys
 import tempfile
 import unittest
 
-from projects.aviris_regression_algorithms.model.ApplyAlgorithm \
-    import ApplyAlgorithm
+from aviris.model.ApplyAlgorithm import ApplyAlgorithm
 
 logger = logging.getLogger()
 logger.level = logging.DEBUG
@@ -17,9 +16,10 @@ logger.level = logging.DEBUG
 # -----------------------------------------------------------------------------
 # class ApplyAlgorithmTestCase
 #
-# python -m unittest projects.aviris_regression_algorithms.model.tests.test_ApplyAlgorithm
-#
-# /att/nobackup/rlgill/innovation-lab$ python -m unittest projects.aviris_regression_algorithms.model.tests.test_ApplyAlgorithm.ApplyAlgorithmTestCase.testScreen
+# export PYTHONPATH=`pwd`:`pwd`/core:`pwd`/aviris
+# python -m unittest discover model/tests/
+# python -m unittest model.tests.test_ApplyAlgorithm
+# python -m unittest model.tests.test_ApplyAlgorithm.ApplyAlgorithmTestCase.testScreen
 # -----------------------------------------------------------------------------
 class ApplyAlgorithmTestCase(unittest.TestCase):
 

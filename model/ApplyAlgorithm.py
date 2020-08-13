@@ -9,12 +9,11 @@ import struct
 from osgeo import gdal
 from osgeo import gdalconst
 
-from model.BaseFile import BaseFile
-from model.Chunker import Chunker
-from model.GeospatialImageFile import GeospatialImageFile
+from core.model.BaseFile import BaseFile
+from core.model.Chunker import Chunker
+from core.model.GeospatialImageFile import GeospatialImageFile
 
-from projects.aviris_regression_algorithms.model.AvirisSpecFile \
-    import AvirisSpecFile
+from aviris.model.AvirisSpecFile import AvirisSpecFile
 
 
 # -----------------------------------------------------------------------------
@@ -89,23 +88,23 @@ class ApplyAlgorithm(object):
 
         self._processRaster(outDs, qa, algorithmName, normalizePixels)
         
-        while True:
-            
-            loc, chunk = self._chunker.getChunk()
-
-            if self._chunker.isComplete():
-                break
-                
-            # Provide a hint of the progress.
-            if curRow != loc[1] and loc[1] % 100 == 0:
-
-                print('Row ' + str(loc[1]) + ' of ' + \
-                    str(self._chunker._imageFile._getDataset().RasterYSize))
-
-            curRow = loc[1]
-
-            self._processRow(curRow, chunk, outDs, qa, algorithmName,
-                             normalizePixels)
+        # while True:
+        #
+        #     loc, chunk = self._chunker.getChunk()
+        #
+        #     if self._chunker.isComplete():
+        #         break
+        #
+        #     # Provide a hint of the progress.
+        #     if curRow != loc[1] and loc[1] % 100 == 0:
+        #
+        #         print('Row ' + str(loc[1]) + ' of ' + \
+        #             str(self._chunker._imageFile._getDataset().RasterYSize))
+        #
+        #     curRow = loc[1]
+        #
+        #     self._processRow(curRow, chunk, outDs, qa, algorithmName,
+        #                      normalizePixels)
 
         outDs = None
         qa = None
@@ -363,7 +362,7 @@ class ApplyAlgorithm(object):
             # translate to bands 6 - 105.
             # ---
             if normalizePixels:
-                divisor = ApplyAlgorithm._computeDivisor(bandCoefValueDict)
+                divisor = ApplyAlgorithm.computeDivisor(bandCoefValueDict)
 
             # Compute the result, normalizing pixel values as we go.
             p = 0.0

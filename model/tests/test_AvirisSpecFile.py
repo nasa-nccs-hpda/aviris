@@ -4,17 +4,17 @@ from datetime import datetime
 import os
 import unittest
 
-from model.ImageFile import ImageFile
+from core.model.ImageFile import ImageFile
 
-from projects.aviris_regression_algorithms.model.AvirisSpecFile \
-    import AvirisSpecFile
+from aviris.model.AvirisSpecFile import AvirisSpecFile
 
 
 # -----------------------------------------------------------------------------
 # class AvirisSpecFileTestCase
 #
-# export PYTHONPATH='pwd'
-# python -m unittest projects.aviris_regression_algorithms.model.tests.test_AvirisSpecFile
+# export PYTHONPATH=`pwd`:`pwd`/core:`pwd`/aviris
+# python -m unittest discover model/tests/
+# python -m unittest model.tests.test_AvirisSpecFile
 # -----------------------------------------------------------------------------
 class AvirisSpecFileTestCase(unittest.TestCase):
 

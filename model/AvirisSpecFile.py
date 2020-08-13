@@ -5,7 +5,7 @@ from datetime import datetime
 import json
 import os
 
-from model.BaseFile import BaseFile
+from core.model.BaseFile import BaseFile
 
 
 # -----------------------------------------------------------------------------
