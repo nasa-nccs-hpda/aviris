@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-import glob
 import sys
 
 from aviris.model.ApplyAlgorithm import ApplyAlgorithm

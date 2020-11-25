@@ -45,7 +45,7 @@ class AvirisSpecFile(BaseFile):
     # ---
     # These are the fields that are read from the image header file.  The
     # private method, _readImageHeaderField, uses this list to test that the
-    # requested field is expected to be in the header.
+    # requested field is in the header.
     # ---
     META_KEYS = [BBL_KEY, CORRECTION_FACTORS_KEY, FWHM_KEY,
                  RADIANCE_VERSION_KEY, SMOOTHING_FACTORS_KEY, WAVELENGTH_KEY]
@@ -141,8 +141,10 @@ class AvirisSpecFile(BaseFile):
             return self._imageHeader
 
         else:
+            
             hdrName = self._imageHeaderName()
-            return open(hdrName, 'r')
+            self._imageHeader = open(hdrName, 'r')
+            return self._imageHeader
 
     # -------------------------------------------------------------------------
     # _readImageHdrField
@@ -200,9 +202,11 @@ class AvirisSpecFile(BaseFile):
             self._createSpecFile(outDir)
 
         # Get the metadata items that are not already populated.
+        headerExists = os.path.exists(self._imageHeaderName())
+        
         for key in AvirisSpecFile.META_KEYS:
 
-            if key not in self._specDict:
+            if headerExists and key not in self._specDict:
 
                 value = self._readImageHdrField(key).split('=')[1].strip()
                 self.setField(key, value)
@@ -242,12 +246,14 @@ class AvirisSpecFile(BaseFile):
             fp.write('#************************************\n')
             fp.write('# Metadata from input image\n')
 
-            self._writeField(fp, AvirisSpecFile.RADIANCE_VERSION_KEY)
-            self._writeField(fp, AvirisSpecFile.WAVELENGTH_KEY)
-            self._writeField(fp, AvirisSpecFile.FWHM_KEY)
-            self._writeField(fp, AvirisSpecFile.SMOOTHING_FACTORS_KEY)
-            self._writeField(fp, AvirisSpecFile.CORRECTION_FACTORS_KEY)
-            self._writeField(fp, AvirisSpecFile.BBL_KEY)
+            if headerExists:
+                
+                self._writeField(fp, AvirisSpecFile.RADIANCE_VERSION_KEY)
+                self._writeField(fp, AvirisSpecFile.WAVELENGTH_KEY)
+                self._writeField(fp, AvirisSpecFile.FWHM_KEY)
+                self._writeField(fp, AvirisSpecFile.SMOOTHING_FACTORS_KEY)
+                self._writeField(fp, AvirisSpecFile.CORRECTION_FACTORS_KEY)
+                self._writeField(fp, AvirisSpecFile.BBL_KEY)
 
     # -------------------------------------------------------------------------
     # _writeField
